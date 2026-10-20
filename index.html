@@ -1,0 +1,849 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f6f2">
+<title>Forma | Online Store</title>
+
+<style>
+:root {
+  --green: #254f3d;
+  --background: #f7f6f2;
+  --white: #ffffff;
+  --text: #20251f;
+  --muted: #777e75;
+  --border: #e8e7e0;
+  --accent: #e9a36c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px 100px;
+}
+
+header {
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.logo span { color: var(--green); }
+
+button { transition: 0.2s; }
+
+.icon-button {
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  background: white;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #e5e9dd;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 28px 0 38px;
+  min-height: 300px;
+}
+
+.hero-copy {
+  padding: 38px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.eyebrow {
+  color: var(--green);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-size: clamp(35px, 5vw, 55px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin: 15px 0;
+}
+
+.hero p {
+  color: #596259;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.hero-art {
+  display: grid;
+  place-items: center;
+  font-size: 115px;
+  background: radial-gradient(circle, #f7e4cd, #e5e9dd);
+}
+
+.primary {
+  border: 0;
+  border-radius: 30px;
+  padding: 13px 20px;
+  background: var(--green);
+  color: white;
+  font-weight: bold;
+}
+
+.primary:hover { background: #183b2b; }
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.section-heading h2 {
+  font-size: 25px;
+  letter-spacing: -1px;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.search {
+  width: 100%;
+  padding: 15px;
+  margin: 15px 0;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: white;
+  outline-color: var(--green);
+}
+
+.categories {
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+.category {
+  white-space: nowrap;
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 25px;
+  padding: 10px 17px;
+}
+
+.category.active {
+  color: white;
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.product-card { min-width: 0; }
+
+.product-image {
+  aspect-ratio: 1 / 1.08;
+  border-radius: 17px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  font-size: 70px;
+  cursor: pointer;
+}
+
+.product-image .emoji {
+  transition: transform 0.2s;
+}
+
+.product-card:hover .emoji { transform: scale(1.08); }
+
+.product-tag {
+  position: absolute;
+  left: 9px;
+  top: 9px;
+  padding: 6px 9px;
+  background: white;
+  border-radius: 20px;
+  font-size: 9px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.add-button {
+  position: absolute;
+  right: 9px;
+  bottom: 9px;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: white;
+  color: var(--green);
+  font-size: 24px;
+}
+
+.product-info { padding: 11px 2px; }
+
+.product-category {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.product-name {
+  font-size: 14px;
+  margin: 7px 0;
+  cursor: pointer;
+}
+
+.price {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.trust {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 45px 0;
+}
+
+.trust div {
+  border-top: 1px solid var(--border);
+  padding-top: 15px;
+}
+
+.trust p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Cart and checkout panels */
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: #0008;
+  justify-content: flex-end;
+}
+
+.overlay.open { display: flex; }
+
+.drawer {
+  background: var(--background);
+  width: min(460px, 100%);
+  height: 100%;
+  overflow-y: auto;
+  padding: 22px;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 15px;
+}
+
+.drawer-header h2 { margin: 0; }
+
+.close-button {
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 65px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.cart-emoji {
+  height: 65px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  font-size: 35px;
+}
+
+.cart-item h3 {
+  margin: 0 0 7px;
+  font-size: 13px;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.quantity button {
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 50%;
+  width: 27px;
+  height: 27px;
+}
+
+.summary {
+  border-top: 1px solid var(--border);
+  margin-top: 20px;
+  padding-top: 12px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 14px 0;
+  font-size: 14px;
+}
+
+.full-button { width: 100%; margin-top: 12px; }
+
+.field { margin: 16px 0; }
+
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.field input, .field textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  outline-color: var(--green);
+}
+
+.field textarea { min-height: 80px; resize: vertical; }
+
+.notice {
+  background: #e4ebe1;
+  color: #31513a;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+.empty {
+  text-align: center;
+  padding: 45px 10px;
+  color: var(--muted);
+}
+
+.order-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 15px;
+  margin: 15px 0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.toast {
+  position: fixed;
+  z-index: 30;
+  left: 50%;
+  bottom: 25px;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  display: none;
+}
+
+.toast.show { display: block; }
+
+.bottom-nav { display: none; }
+
+@media (max-width: 760px) {
+  .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero { grid-template-columns: 1fr; }
+  .hero-copy { padding: 25px; }
+  .hero-art { min-height: 180px; font-size: 95px; }
+  .trust { grid-template-columns: 1fr; gap: 5px; }
+  .trust div { padding: 12px 0; }
+}
+
+@media (max-width: 600px) {
+  .container { padding: 0 14px 95px; }
+  header { height: 65px; }
+  .hero h1 { font-size: 39px; }
+  .hero { margin-top: 18px; }
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 4px calc(12px + env(safe-area-inset-bottom));
+    background: #fffffff2;
+    border-top: 1px solid var(--border);
+    z-index: 5;
+  }
+  .bottom-nav button {
+    border: 0;
+    background: transparent;
+    color: var(--green);
+    font-size: 12px;
+    font-weight: bold;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <header>
+    <div class="logo"><span>f.</span> forma.</div>
+    <div>
+      <button class="icon-button" onclick="openOrders()">Orders</button>
+      <button class="icon-button" onclick="openCart()">🛍 <span id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Thoughtfully chosen</span>
+      <h1>Make room for the good things.</h1>
+      <p>Useful objects, timeless details, and little upgrades that make every day feel better.</p>
+      <button class="primary" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
+        Explore products →
+      </button>
+    </div>
+    <div class="hero-art" aria-label="Decorative vase">🏺</div>
+  </section>
+
+  <section id="shop">
+    <div class="section-heading">
+      <div>
+        <h2>Our collection</h2>
+        <p class="muted">Find something you'll love.</p>
+      </div>
+    </div>
+
+    <input id="search" class="search" type="search" placeholder="Search products...">
+
+    <div id="categories" class="categories"></div>
+    <div id="products" class="products"></div>
+  </section>
+
+  <section class="trust">
+    <div><strong>✦ Thoughtful quality</strong><p>Products selected for everyday use.</p></div>
+    <div><strong>⌁ Simple ordering</strong><p>Place your order in a few easy steps.</p></div>
+    <div><strong>♡ Personal service</strong><p>We'll contact you to confirm your order.</p></div>
+  </section>
+
+  <footer>© 2026 Forma Store · Your everyday shopping destination.</footer>
+</div>
+
+<nav class="bottom-nav">
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})">⌂ Home</button>
+  <button onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">⌕ Discover</button>
+  <button onclick="openCart()">🛍 Cart</button>
+  <button onclick="openOrders()">▤ Orders</button>
+</nav>
+
+<!-- Shopping cart -->
+<div class="overlay" id="cartOverlay" onclick="outsideClick(event,'cartOverlay')">
+  <aside class="drawer">
+    <div class="drawer-header">
+      <h2>Your cart</h2>
+      <button class="close-button" onclick="closePanel('cartOverlay')">×</button>
+    </div>
+    <div id="cartContent"></div>
+  </aside>
+</div>
+
+<!-- Checkout form -->
+<div class="overlay" id="checkoutOverlay" onclick="outsideClick(event,'checkoutOverlay')">
+  <aside class="drawer">
+    <div class="drawer-header">
+      <h2>Checkout</h2>
+      <button class="close-button" onclick="closePanel('checkoutOverlay')">×</button>
+    </div>
+
+    <p class="muted">Enter your details so we can confirm your order.</p>
+
+    <form id="checkoutForm">
+      <div class="field">
+        <label for="customerName">Full name *</label>
+        <input id="customerName" name="name" required autocomplete="name" placeholder="Your name">
+      </div>
+
+      <div class="field">
+        <label for="customerPhone">Phone number *</label>
+        <input id="customerPhone" name="phone" type="tel" required autocomplete="tel" placeholder="+251...">
+      </div>
+
+      <div class="field">
+        <label for="customerAddress">Delivery address *</label>
+        <textarea id="customerAddress" name="address" required placeholder="City, area, nearby landmark"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="customerNote">Additional notes</label>
+        <textarea id="customerNote" name="note" placeholder="Optional delivery instructions"></textarea>
+      </div>
+
+      <div class="notice">
+        <strong>Manual payment confirmation</strong><br>
+        This demo does not collect online payments. We'll contact you to confirm your order, payment method, and delivery fee.
+      </div>
+
+      <div id="checkoutTotal"></div>
+      <button class="primary full-button" type="submit">Place order →</button>
+    </form>
+  </aside>
+</div>
+
+<!-- Order history -->
+<div class="overlay" id="ordersOverlay" onclick="outsideClick(event,'ordersOverlay')">
+  <aside class="drawer">
+    <div class="drawer-header">
+      <h2>Your orders</h2>
+      <button class="close-button" onclick="closePanel('ordersOverlay')">×</button>
+    </div>
+    <div id="ordersContent"></div>
+  </aside>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+// SAMPLE PRODUCTS — replace these with your real products.
+const products = [
+  {id:1,name:"Ceramic Vase",category:"Home",price:890,color:"#e4d7c3",emoji:"🏺",tag:"Bestseller",description:"A beautiful decorative ceramic vase for your home."},
+  {id:2,name:"Canvas Tote Bag",category:"Accessories",price:650,color:"#d8dfce",emoji:"👜",tag:"Popular",description:"A practical reusable tote bag for everyday use."},
+  {id:3,name:"Coffee Cup",category:"Kitchen",price:420,color:"#ead8c4",emoji:"☕",description:"A comfortable cup for your favorite daily coffee."},
+  {id:4,name:"Desk Lamp",category:"Home",price:1450,color:"#d9e0dd",emoji:"💡",tag:"New",description:"A minimalist lamp for your desk or bedside table."},
+  {id:5,name:"Botanical Soap",category:"Care",price:280,color:"#e5e8d8",emoji:"🧼",description:"A gentle soap for your daily routine."},
+  {id:6,name:"Cotton Throw",category:"Home",price:1250,color:"#e9d7ce",emoji:"🧣",description:"A soft throw for relaxing at home."},
+  {id:7,name:"Daily Journal",category:"Stationery",price:390,color:"#e7e0cf",emoji:"📔",description:"A notebook for your ideas, notes, and plans."},
+  {id:8,name:"Water Bottle",category:"Accessories",price:720,color:"#d8e3e5",emoji:"🧴",description:"A reusable bottle for work and travel."}
+];
+
+const categories = ["All","Home","Kitchen","Accessories","Care","Stationery"];
+let selectedCategory = "All";
+let searchTerm = "";
+let cart = {};
+let orders = [];
+
+const money = amount => "ETB " + amount.toLocaleString("en-US");
+
+function renderCategories() {
+  document.getElementById("categories").innerHTML = categories.map(category => `
+    <button class="category ${selectedCategory === category ? "active" : ""}"
+      onclick="selectCategory('${category}')">${category}</button>
+  `).join("");
+}
+
+function renderProducts() {
+  const filtered = products.filter(product => {
+    const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
+    const matchesSearch = (product.name + " " + product.category)
+      .toLowerCase().includes(searchTerm);
+    return matchesCategory && matchesSearch;
+  });
+
+  const container = document.getElementById("products");
+
+  if (!filtered.length) {
+    container.innerHTML = '<p class="muted">No products found. Try another search.</p>';
+    return;
+  }
+
+  container.innerHTML = filtered.map(product => `
+    <article class="product-card">
+      <div class="product-image" style="background:${product.color}"
+        onclick="showProduct(${product.id})" role="button" tabindex="0">
+        <span class="emoji">${product.emoji}</span>
+        ${product.tag ? `<span class="product-tag">${product.tag}</span>` : ""}
+        <button class="add-button" aria-label="Add ${product.name} to cart"
+          onclick="event.stopPropagation();addToCart(${product.id})">+</button>
+      </div>
+      <div class="product-info">
+        <div class="product-category">${product.category}</div>
+        <h3 class="product-name" onclick="showProduct(${product.id})">${product.name}</h3>
+        <div class="price">${money(product.price)}</div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function selectCategory(category) {
+  selectedCategory = category;
+  renderCategories();
+  renderProducts();
+}
+
+document.getElementById("search").addEventListener("input", event => {
+  searchTerm = event.target.value.toLowerCase().trim();
+  renderProducts();
+});
+
+function addToCart(id, quantity = 1) {
+  cart[id] = (cart[id] || 0) + quantity;
+  updateCartCount();
+  showToast("Added to cart!");
+}
+
+function updateCartCount() {
+  const count = Object.values(cart).reduce((sum, quantity) => sum + quantity, 0);
+  document.getElementById("cartCount").textContent = count;
+}
+
+function cartTotals() {
+  const items = Object.entries(cart).filter(([, quantity]) => quantity > 0);
+  const subtotal = items.reduce((sum, [id, quantity]) => {
+    const product = products.find(item => item.id === Number(id));
+    return sum + product.price * quantity;
+  }, 0);
+
+  return {items, subtotal};
+}
+
+function renderCart() {
+  const {items, subtotal} = cartTotals();
+  const container = document.getElementById("cartContent");
+
+  if (!items.length) {
+    container.innerHTML = `
+      <div class="empty">
+        <div style="font-size:40px">🛍</div>
+        <h3>Your cart is empty</h3>
+        <p>Browse our collection and add your favorite products.</p>
+        <button class="primary" onclick="closePanel('cartOverlay');document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Explore products</button>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = items.map(([id, quantity]) => {
+    const product = products.find(item => item.id === Number(id));
+
+    return `
+      <div class="cart-item">
+        <div class="cart-emoji" style="background:${product.color}">${product.emoji}</div>
+        <div>
+          <h3>${product.name}</h3>
+          <div class="muted">${money(product.price)} each</div>
+          <div class="quantity">
+            <button onclick="changeQuantity(${id},-1)">−</button>
+            <span>${quantity}</span>
+            <button onclick="changeQuantity(${id},1)">+</button>
+          </div>
+        </div>
+        <strong>${money(product.price * quantity)}</strong>
+      </div>`;
+  }).join("") + `
+    <div class="summary">
+      <div class="summary-row"><span>Subtotal</span><strong>${money(subtotal)}</strong></div>
+      <div class="summary-row"><span>Delivery</span><span>Confirmed later</span></div>
+      <div class="summary-row"><strong>Total</strong><strong>${money(subtotal)}</strong></div>
+      <button class="primary full-button" onclick="startCheckout()">Continue to checkout →</button>
+    </div>`;
+}
+
+function changeQuantity(id, change) {
+  cart[id] += change;
+  if (cart[id] <= 0) delete cart[id];
+  updateCartCount();
+  renderCart();
+}
+
+function openCart() {
+  renderCart();
+  openPanel("cartOverlay");
+}
+
+function showProduct(id) {
+  const product = products.find(item => item.id === id);
+
+  document.getElementById("cartContent").innerHTML = `
+    <div style="text-align:center;padding:25px">
+      <div style="font-size:80px;background:${product.color};padding:25px;border-radius:20px">${product.emoji}</div>
+      <h2>${product.name}</h2>
+      <h3>${money(product.price)}</h3>
+      <p class="muted">${product.description}</p>
+      <button class="primary" onclick="addToCart(${product.id});openCart()">Add to cart</button>
+    </div>`;
+
+  openPanel("cartOverlay");
+}
+
+function startCheckout() {
+  if (!cartTotals().items.length) {
+    showToast("Your cart is empty.");
+    return;
+  }
+
+  closePanel("cartOverlay");
+  document.getElementById("checkoutTotal").innerHTML = `
+    <div class="summary-row"><strong>Order total</strong><strong>${money(cartTotals().subtotal)}</strong></div>`;
+  openPanel("checkoutOverlay");
+}
+
+document.getElementById("checkoutForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const form = new FormData(event.target);
+  const {items, subtotal} = cartTotals();
+
+  if (!items.length) {
+    closePanel("checkoutOverlay");
+    showToast("Your cart is empty.");
+    return;
+  }
+
+  const order = {
+    number: "FM" + Date.now().toString().slice(-7),
+    name: form.get("name").trim(),
+    phone: form.get("phone").trim(),
+    address: form.get("address").trim(),
+    total: subtotal,
+    items: items.map(([id, quantity]) => ({id:Number(id), quantity})),
+    date: new Date().toLocaleDateString(),
+    status: "Awaiting confirmation"
+  };
+
+  orders.unshift(order);
+  cart = {};
+  updateCartCount();
+  event.target.reset();
+  closePanel("checkoutOverlay");
+  renderOrders();
+  openPanel("ordersOverlay");
+  showToast("Demo order placed successfully!");
+});
+
+function renderOrders() {
+  const container = document.getElementById("ordersContent");
+
+  if (!orders.length) {
+    container.innerHTML = '<div class="empty"><h3>No orders yet</h3><p>Your orders will appear here after checkout.</p></div>';
+    return;
+  }
+
+  container.innerHTML = orders.map(order => `
+    <div class="order-card">
+      <strong>Order #${order.number}</strong><br>
+      <span style="color:#8b5c25">${order.status}</span><br>
+      Date: ${order.date}<br>
+      Total: <strong>${money(order.total)}</strong><br>
+      Customer: ${escapeHtml(order.name)}<br>
+      Phone: ${escapeHtml(order.phone)}<br>
+      Address: ${escapeHtml(order.address)}
+    </div>
+  `).join("") + '<p class="muted">Demo only: these orders disappear when the page is refreshed.</p>';
+}
+
+function openOrders() {
+  renderOrders();
+  openPanel("ordersOverlay");
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, character => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  })[character]);
+}
+
+function openPanel(id) {
+  document.getElementById(id).classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closePanel(id) {
+  document.getElementById(id).classList.remove("open");
+
+  if (!document.querySelector(".overlay.open")) {
+    document.body.style.overflow = "";
+  }
+}
+
+function outsideClick(event, id) {
+  if (event.target.id === id) closePanel(id);
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => toast.classList.remove("show"), 2000);
+}
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    document.querySelectorAll(".overlay.open").forEach(panel => closePanel(panel.id));
+  }
+});
+
+renderCategories();
+renderProducts();
+updateCartCount();
+</script>
+</body>
+</html>
